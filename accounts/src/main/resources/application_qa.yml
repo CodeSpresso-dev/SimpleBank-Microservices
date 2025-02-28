@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  version: "0.9"
+
+accounts:
+  message: "Welcome to Simple Bank accounts related QA APIs"
+  contactDetails:
+    name: "John Doe - QA Leader"
+    email: "John.Doe@simplebank.com"

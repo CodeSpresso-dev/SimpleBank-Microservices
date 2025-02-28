@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to Simple Bank accounts related Prod APIs"
+  contactDetails:
+    name: "David Brown - Production Owner"
+    email: "David.Brown@simplebank.com"
