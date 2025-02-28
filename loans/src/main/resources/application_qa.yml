@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  version: "2.0"
+
+loans:
+  message: "Welcome to Simple Bank loans related QA APIs"
+  contactDetails:
+    name: "James Doe - QA Leader"
+    email: "James.Doe@simplebank.com"
