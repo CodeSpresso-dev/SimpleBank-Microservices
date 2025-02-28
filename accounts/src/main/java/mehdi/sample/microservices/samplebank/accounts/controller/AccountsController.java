@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import mehdi.sample.microservices.samplebank.accounts.constants.AccountsConstants;
+import mehdi.sample.microservices.samplebank.accounts.dto.AccountsContactInfoDto;
 import mehdi.sample.microservices.samplebank.accounts.dto.CustomerDto;
 import mehdi.sample.microservices.samplebank.accounts.dto.ErrorResponseDto;
 import mehdi.sample.microservices.samplebank.accounts.dto.ResponseDto;
@@ -33,13 +34,15 @@ public class AccountsController {
 
     private final IAccountsService iAccountsService;
     private final Environment environment;
+    private final AccountsContactInfoDto accountsContactInfoDto;
 
     @Value("${build.version}")
     private String buildVersion;
 
-    public AccountsController(IAccountsService iAccountsService, Environment environment) {
+    public AccountsController(IAccountsService iAccountsService, Environment environment, AccountsContactInfoDto accountsContactInfoDto) {
         this.iAccountsService = iAccountsService;
         this.environment = environment;
+        this.accountsContactInfoDto = accountsContactInfoDto;
     }
 
     @Operation(
@@ -206,5 +209,29 @@ public class AccountsController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("JAVA_HOME"));
+    }
+
+    @Operation(
+            summary = "Get Contact Info",
+            description = "Get Contact information that can be reached out in case of any issues"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )}
+    )
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoDto> fetchContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountsContactInfoDto);
     }
 }
