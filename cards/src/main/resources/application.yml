@@ -1,5 +1,6 @@
 server:
   port: 8082
+
 spring:
   application:
     name: cards-service
@@ -18,3 +19,23 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
+  config:
+    import:
+      - "application_qa.yml"
+      - "application_prod.yml"
+  profiles:
+    active:
+      - "qa"
+
+build:
+  version: "3.0"
+
+cards:
+  message: "Welcome to Simple Bank cards APIs"
+  contactDetails:
+    name: "Mohamed Hassan - Developer"
+    email: "Mohamed.Hassan@simplebank.com"
+  socialMedias:
+    - "twitter(@simplebank) -> https://twitter.com/simplebank"
+    - "facebook(simplebank) -> https://facebook.com/simplebank"
+    - "linkedin(simplebank) -> https://linkedin.com/company/simplebank"
