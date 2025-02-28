@@ -18,3 +18,5 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
+build:
+  version: 1.0

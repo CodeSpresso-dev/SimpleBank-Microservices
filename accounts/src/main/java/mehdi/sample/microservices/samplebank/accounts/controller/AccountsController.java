@@ -14,6 +14,7 @@ import mehdi.sample.microservices.samplebank.accounts.dto.CustomerDto;
 import mehdi.sample.microservices.samplebank.accounts.dto.ErrorResponseDto;
 import mehdi.sample.microservices.samplebank.accounts.dto.ResponseDto;
 import mehdi.sample.microservices.samplebank.accounts.service.IAccountsService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +27,17 @@ import org.springframework.web.bind.annotation.*;
 )
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
-@AllArgsConstructor
 @Validated
 public class AccountsController {
 
     private final IAccountsService iAccountsService;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    public AccountsController(IAccountsService iAccountsService) {
+        this.iAccountsService = iAccountsService;
+    }
 
     @Operation(
             summary = "Create Account REST API",
@@ -54,9 +61,18 @@ public class AccountsController {
             summary = "Fetch Account Details REST API",
             description = "REST API to fetch customer and account details based on mobile number"
     )
-    @ApiResponse(
-            responseCode = "200",
-            description = "HTTP Status OK"
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )}
     )
     @GetMapping("/fetch")
     public ResponseEntity<CustomerDto> fetchAccountDetailsByMobileNumber(@RequestParam
@@ -139,5 +155,29 @@ public class AccountsController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @Operation(
+            summary = "Get Build information",
+            description = "Get Build information that is deployed into accounts microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )}
+    )
+    @GetMapping("/build-info")
+    public ResponseEntity<String> fetchBuildInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
     }
 }
