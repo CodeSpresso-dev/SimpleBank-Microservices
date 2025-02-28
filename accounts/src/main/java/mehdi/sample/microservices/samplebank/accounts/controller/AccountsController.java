@@ -15,6 +15,7 @@ import mehdi.sample.microservices.samplebank.accounts.dto.ErrorResponseDto;
 import mehdi.sample.microservices.samplebank.accounts.dto.ResponseDto;
 import mehdi.sample.microservices.samplebank.accounts.service.IAccountsService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +32,14 @@ import org.springframework.web.bind.annotation.*;
 public class AccountsController {
 
     private final IAccountsService iAccountsService;
+    private final Environment environment;
 
     @Value("${build.version}")
     private String buildVersion;
 
-    public AccountsController(IAccountsService iAccountsService) {
+    public AccountsController(IAccountsService iAccountsService, Environment environment) {
         this.iAccountsService = iAccountsService;
+        this.environment = environment;
     }
 
     @Operation(
@@ -179,5 +182,29 @@ public class AccountsController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(buildVersion);
+    }
+
+    @Operation(
+            summary = "Get Java version",
+            description = "Get Java version details that is installed into accounts microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )}
+    )
+    @GetMapping("/java-version")
+    public ResponseEntity<String> fetchJavaVersion() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(environment.getProperty("JAVA_HOME"));
     }
 }
