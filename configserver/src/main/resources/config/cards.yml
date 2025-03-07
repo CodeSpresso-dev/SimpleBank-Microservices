@@ -1,0 +1,12 @@
+build:
+  version: "3.0"
+
+cards:
+  message: "Welcome to Simple Bank cards APIs"
+  contactDetails:
+    name: "Mohamed Hassan - Developer"
+    email: "Mohamed.Hassan@simplebank.com"
+  socialMedias:
+    - "twitter(@simplebank) -> https://twitter.com/simplebank"
+    - "facebook(simplebank) -> https://facebook.com/simplebank"
+    - "linkedin(simplebank) -> https://linkedin.com/company/simplebank"

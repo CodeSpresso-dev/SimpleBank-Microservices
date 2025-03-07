@@ -1,0 +1,8 @@
+build:
+  version: "1.0"
+
+cards:
+  message: "Welcome to Simple Bank cards related Prod APIs"
+  contactDetails:
+    name: "Robert Carlos - Production Owner"
+    email: "Robert.Carlos@simplebank.com"

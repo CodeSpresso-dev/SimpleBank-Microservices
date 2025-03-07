@@ -1,0 +1,8 @@
+build:
+  version: "2.0"
+
+cards:
+  message: "Welcome to Simple Bank cards related QA APIs"
+  contactDetails:
+    name: "Zephaniah - QA Leader"
+    email: "Zephaniah@simplebank.com"

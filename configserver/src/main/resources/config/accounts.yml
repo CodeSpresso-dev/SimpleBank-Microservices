@@ -1,0 +1,12 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to Simple Bank accounts APIs"
+  contactDetails:
+    name: "Mahdi Shivaeifar - Developer"
+    email: "shivaeifar.m@gmail.com"
+  socialMedias:
+    - "twitter(@simplebank) -> https://twitter.com/simplebank"
+    - "facebook(simplebank) -> https://facebook.com/simplebank"
+    - "linkedin(simplebank) -> https://linkedin.com/company/simplebank"

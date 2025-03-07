@@ -1,0 +1,12 @@
+build:
+  version: "3.0"
+
+loans:
+  message: "Welcome to Simple Bank loans APIs"
+  contactDetails:
+    name: "Hassan - Developer"
+    email: "Hassan@simplebank.com"
+  socialMedias:
+    - "twitter(@simplebank) -> https://twitter.com/simplebank"
+    - "facebook(simplebank) -> https://facebook.com/simplebank"
+    - "linkedin(simplebank) -> https://linkedin.com/company/simplebank"
